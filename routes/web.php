@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home');
+    return redirect()->route('medicalRecord.index');
 });
 
 Route::resource('medicalRecord', \App\Http\Controllers\MedicalRecordController::class);

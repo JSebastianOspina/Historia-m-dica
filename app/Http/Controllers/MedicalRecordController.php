@@ -9,14 +9,18 @@ use Illuminate\Http\RedirectResponse;
 
 class MedicalRecordController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+        $medicalRecords = MedicalRecord::all()->toArray();
+        foreach ($medicalRecords as $key => $record) {
+
+            $medicalRecords[$key]['message'] = 'hola';
+            //Turn into object
+            $medicalRecords[$key] = (object)$medicalRecords[$key];
+        }
+
+        return view('MedicalRecords.index')->with(compact('medicalRecords'));
     }
 
     /**

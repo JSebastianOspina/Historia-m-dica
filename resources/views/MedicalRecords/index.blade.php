@@ -15,6 +15,22 @@
         </div>
     @endif
 
+    <div class="row mt-3">
+        @foreach($medicalRecords as $medicalRecord)
+
+            <div class="col-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="https://ui-avatars.com/api/?background=random&name={{$medicalRecord->name}}&size=512"
+                         class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the card's content.</p>
+                    </div>
+                </div>
+            </div>
+
+        @endforeach
+    </div>
     <div class="modal fade" id="createMedicalRecord" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
          aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -53,8 +69,10 @@
                             <label for="gender">Sexo</label>
                             <select name="gender" id="gender" class="form-select @error('gender') is-invalid @enderror">
                                 <option selected disabled>Selecciona un género</option>
-                                <option value="masculino" @if(old('gender') === "masculino") selected @endif>Masculino</option>
-                                <option value="femenino" @if(old('gender') === "femenino") selected @endif>Femenino</option>
+                                <option value="masculino" @if(old('gender') === "masculino") selected @endif>Masculino
+                                </option>
+                                <option value="femenino" @if(old('gender') === "femenino") selected @endif>Femenino
+                                </option>
                             </select>
                             @error('gender')
                             <div class="invalid-feedback">
