@@ -61,10 +61,9 @@ class MedicalRecord extends Model
 
     private function getOverEighteenMessage(): string
     {
-        $message = "Hola $this->name eres una persona muy saludable, te recomiendo comer "
+        return "Hola $this->name eres una persona muy saludable, te recomiendo comer "
             . ($this->weight >= 30 ? 'mas' : 'menos') . " y salir a correr "
             . $this->getRunDistance() . " km diarios";
-        return $message;
     }
 
     private function getRunDistance(): string
@@ -77,14 +76,15 @@ class MedicalRecord extends Model
 
     private function getPlayHours(): int
     {
-        //Get the first 13 fibonnaci numbers (the 13th corresponds to 233)
-        $MAXIMUM_FIBONACCI_NUMBER = 13;
-
+        //Get the first 4 Fibonacci's numbers (the 4th corresponds to someone near to 300CM tall)
+        $MAXIMUM_FIBONACCI_NUMBER = 4;
         $fibonacci = $this->fibonacci($MAXIMUM_FIBONACCI_NUMBER);
+
+        //Arbitrary number to establish a high difference start point.
         $lowerDifference = 999;
         $finalNumber = 0;
         foreach ($fibonacci as $number) {
-            $TempDifference = abs($this->height - $number);
+            $TempDifference = abs(($this->height / 100) - $number);
             if ($TempDifference < $lowerDifference) {
                 $lowerDifference = $TempDifference;
                 $finalNumber = $number;
