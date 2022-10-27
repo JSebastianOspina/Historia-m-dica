@@ -13,9 +13,6 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
         .footer {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
             height: 60px; /* Set the fixed height of the footer here */
             line-height: 60px; /* Vertically center the text there */
         }
@@ -29,12 +26,12 @@
         </div>
     </nav>
 </header>
-<main>
+<main >
     <div class="container py-3">
         {{$slot}}
     </div>
 </main>
-<footer class="footer bg-dark">
+<footer class="footer bg-dark fixed-bottom">
     <div class="container">
         <p class="text-white text-center">2022 — Inteliti</p>
     </div>

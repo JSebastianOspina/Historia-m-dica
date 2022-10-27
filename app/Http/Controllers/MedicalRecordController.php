@@ -2,36 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\MedicalRecord;
 use App\Http\Requests\StoreMedicalRecordRequest;
-use App\Http\Requests\UpdateMedicalRecordRequest;
+use App\Models\MedicalRecord;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
 class MedicalRecordController extends Controller
 {
 
+    /**
+     * @return Application|Factory|View
+     */
     public function index()
     {
-        $medicalRecords = MedicalRecord::all()->toArray();
-        foreach ($medicalRecords as $key => $record) {
-
-            $medicalRecords[$key]['message'] = 'hola';
-            //Turn into object
-            $medicalRecords[$key] = (object)$medicalRecords[$key];
-        }
-
+        $medicalRecords = MedicalRecord::all();
         return view('MedicalRecords.index')->with(compact('medicalRecords'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -39,7 +28,7 @@ class MedicalRecordController extends Controller
      * @param StoreMedicalRecordRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreMedicalRecordRequest $request)
+    public function store(StoreMedicalRecordRequest $request): RedirectResponse
     {
         MedicalRecord::create($request->all());
         return redirect()->back()->with('message', 'Registro creado exitosamente');
@@ -48,45 +37,24 @@ class MedicalRecordController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Models\MedicalRecord $medicalRecord
-     * @return \Illuminate\Http\Response
+     * @param MedicalRecord $medicalRecord
+     * @return Application|Factory|View
      */
     public function show(MedicalRecord $medicalRecord)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param \App\Models\MedicalRecord $medicalRecord
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(MedicalRecord $medicalRecord)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \App\Http\Requests\UpdateMedicalRecordRequest $request
-     * @param \App\Models\MedicalRecord $medicalRecord
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateMedicalRecordRequest $request, MedicalRecord $medicalRecord)
-    {
-        //
+        return view('MedicalRecords.show')->with(compact('medicalRecord'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Models\MedicalRecord $medicalRecord
-     * @return \Illuminate\Http\Response
+     * @param MedicalRecord $medicalRecord
+     * @return RedirectResponse
      */
-    public function destroy(MedicalRecord $medicalRecord)
+    public function destroy(MedicalRecord $medicalRecord): RedirectResponse
     {
-        //
+        $medicalRecord->delete();
+        return redirect()->back()->with('message', 'Registro borrado exitosamente');
+
     }
 }

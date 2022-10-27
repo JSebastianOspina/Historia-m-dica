@@ -7,30 +7,47 @@
     <h1>
         Historias médicas
     </h1>
-
-
     @if(session('message'))
         <div class="alert alert-success" role="alert">
             {{session('message')}}
         </div>
     @endif
-
-    <div class="row mt-3">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Fecha de nacimiento</th>
+            <th scope="col">Sexo</th>
+            <th scope="col">Estatura</th>
+            <th scope="col">Peso</th>
+            <th scope="col">Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
         @foreach($medicalRecords as $medicalRecord)
+            <tr>
+                <td>{{$medicalRecord->name}}</td>
+                <td>{{$medicalRecord->birthDate}}</td>
+                <td>{{$medicalRecord->gender}}</td>
+                <td>{{$medicalRecord->height}}</td>
+                <td>{{$medicalRecord->weight}}</td>
+                <td>
+                    <form action="{{route('medicalRecord.destroy',['medicalRecord'=>$medicalRecord->id])}}"
+                          method="POST" class="d-inline-block">
+                        @csrf
+                        @method('DELETE')
 
-            <div class="col-4">
-                <div class="card" style="width: 18rem;">
-                    <img src="https://ui-avatars.com/api/?background=random&name={{$medicalRecord->name}}&size=512"
-                         class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the card's content.</p>
-                    </div>
-                </div>
-            </div>
-
+                        <button class="btn btn-secondary" type="submit">Eliminar</button>
+                    </form>
+                    <a class="btn btn-dark" href="{{route('medicalRecord.show',['medicalRecord'=>$medicalRecord->id])}}"
+                       type="submit">Ver detalles</a>
+                </td>
+            </tr>
         @endforeach
-    </div>
+        </tbody>
+
+    </table>
+
     <div class="modal fade" id="createMedicalRecord" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
          aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
